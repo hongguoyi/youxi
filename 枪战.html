@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>枪战游戏</title>
+    <link rel="stylesheet" href="style-shooter.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>枪战游戏</h1>
+        <div class="game-info">
+            <div class="score">分数: <span id="score">0</span></div>
+            <div class="lives">生命: <span id="lives">3</span></div>
+            <div class="level">关卡: <span id="level">1</span></div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="controls">
+            <button id="startBtn">开始游戏</button>
+            <button id="pauseBtn">暂停</button>
+            <button id="restartBtn">重新开始</button>
+        </div>
+        <div class="game-rules">
+            <h3>游戏规则：</h3>
+            <p>使用鼠标控制瞄准和射击，使用WASD键移动，空格键换弹。消灭敌人获得分数，注意躲避敌人的子弹！</p>
+            <p>随着关卡提升，敌人会越来越多，越来越难对付！</p>
+        </div>
+    </div>
+    <script src="script-shooter.js"></script>
+</body>
+</html>

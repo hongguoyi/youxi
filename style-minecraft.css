@@ -1,0 +1,395 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fcfcfc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.game-container {
+    background-color: #2a2a2a;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+h1 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+    font-family: 'Courier New', monospace;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.health {
+    color: #ff5252;
+}
+
+.hunger {
+    color: #ffcc00;
+}
+
+.blocks {
+    color: #4CAF50;
+}
+
+.day-time {
+    color: #87ceeb;
+}
+
+#gameCanvas {
+    background-color: #87ceeb;
+    border: 3px solid #555;
+    border-radius: 10px;
+    cursor: crosshair;
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 100%;
+    height: auto;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.movement-controls, .build-controls {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-align: left;
+    flex: 1;
+    margin: 5px;
+    min-width: 200px;
+}
+
+.game-controls h3 {
+    color: #4CAF50;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.game-controls p {
+    font-size: 0.9rem;
+    color: #cccccc;
+}
+
+/* 快捷工具栏样式 */
+.hotbar {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #555;
+}
+
+.hotbar-slot {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #555;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hotbar-slot:hover {
+    border-color: #4CAF50;
+}
+
+.hotbar-slot.active {
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+.hotbar-item {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hotbar-count {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.hotbar-key {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 0.7rem;
+    color: #888;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 物品图标样式 */
+.hotbar-item.grass {
+    background-color: #4CAF50;
+}
+
+.hotbar-item.dirt {
+    background-color: #8B4513;
+}
+
+.hotbar-item.stone {
+    background-color: #A9A9A9;
+}
+
+.hotbar-item.wood {
+    background-color: #8B4513;
+}
+
+.hotbar-item.glass {
+    background-color: rgba(135, 206, 235, 0.5);
+    border: 1px solid #87ceeb;
+}
+
+.hotbar-item.ore {
+    background-color: #FFD700;
+}
+
+.hotbar-item.coal {
+    background-color: #333;
+}
+
+.hotbar-item.sapling {
+    background-color: #006400;
+}
+
+.hotbar-item.tool-pickaxe {
+    background-color: #8B4513;
+    position: relative;
+}
+
+.hotbar-item.tool-pickaxe::after {
+    content: '⛏️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+/* 游戏状态信息 */
+.game-stats {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #cccccc;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* 背包界面样式 */
+.inventory {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 3px solid #555;
+    border-radius: 15px;
+    padding: 20px;
+    width: 500px;
+    display: none;
+    z-index: 1000;
+}
+
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.inventory-header h3 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+}
+
+#closeInventory {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+#closeInventory:hover {
+    background-color: #ff1744;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.inventory-slot {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #555;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* 合成界面样式 */
+.crafting {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 3px solid #555;
+    border-radius: 15px;
+    padding: 20px;
+    width: 400px;
+    display: none;
+    z-index: 1000;
+}
+
+.crafting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.crafting-header h3 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+}
+
+#closeCrafting {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+#closeCrafting:hover {
+    background-color: #ff1744;
+}
+
+.crafting-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.crafting-result {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #555;
+    border-radius: 5px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 方块按钮特定颜色 */
+.block-btn[data-type="grass"] { background-color: #4CAF50; }
+.block-btn[data-type="dirt"] { background-color: #8B4513; }
+.block-btn[data-type="stone"] { background-color: #A9A9A9; }
+.block-btn[data-type="wood"] { background-color: #8B4513; }
+.block-btn[data-type="glass"] { background-color: #E0FFFF; color: #000; }
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+    }
+    
+    .block-selection {
+        flex-wrap: wrap;
+    }
+}
+
+/* 加载动画 */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* 指针样式 */
+#gameCanvas {
+    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABRklEQVQ4T6XUPUoDQRCGv95BjJQO09QpQpGqT8qA1J+gYVSAJQzQo2IhFwKIgQpQJbW9sT5N2eNw6b9+D9W34e6+Ic6VY6a/9u9o6r9b6b5l5q5t5q5t5o5r5p5p5p5p5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o5o

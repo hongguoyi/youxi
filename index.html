@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 克隆 - 高级版本</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        canvas {
+            display: block;
+            background-color: #87ceeb;
+        }
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .ui-element {
+            position: absolute;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            margin: 10px;
+        }
+        #stats {
+            top: 0;
+            left: 0;
+            text-align: left;
+        }
+        #position {
+            bottom: 0;
+            left: 0;
+            text-align: left;
+        }
+        #time {
+            top: 0;
+            right: 0;
+            text-align: right;
+        }
+        #biome {
+            top: 40px;
+            right: 0;
+            text-align: right;
+        }
+        #air {
+            bottom: 100px;
+            left: 10px;
+            text-align: left;
+        }
+        .air-bar {
+            width: 100px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .air-fill {
+            height: 100%;
+            background-color: #1E90FF;
+            transition: width 0.1s;
+        }
+        #hotbar {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        .hotbar-slot {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .hotbar-slot.active {
+            border-color: white;
+        }
+        .hotbar-key {
+            position: absolute;
+            top: 0;
+            left: 3px;
+            font-size: 12px;
+            color: white;
+        }
+        .hotbar-item {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .hotbar-count {
+            position: absolute;
+            bottom: 0;
+            right: 3px;
+            font-size: 12px;
+            color: white;
+        }
+        #inventory {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+            pointer-events: auto;
+        }
+        #inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 5px;
+        }
+        #crafting {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+            pointer-events: auto;
+        }
+        #controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .key-hint {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            margin: 0 2px;
+            border-radius: 3px;
+        }
+        #hunger {
+            bottom: 60px;
+            left: 10px;
+            text-align: left;
+        }
+        .hunger-bar {
+            width: 100px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .hunger-fill {
+            height: 100%;
+            background-color: #FFA500;
+            transition: width 0.1s;
+        }
+        #health {
+            bottom: 140px;
+            left: 10px;
+            text-align: left;
+        }
+        .health-bar {
+            width: 100px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .health-fill {
+            height: 100%;
+            background-color: #FF0000;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="ui">
+            <div id="stats" class="ui-element">
+                <div>生命值: <span id="health-value">20</span></div>
+                <div class="health-bar">
+                    <div class="health-fill" style="width: 100%"></div>
+                </div>
+                <div>饥饿度: <span id="hunger-value">20</span></div>
+                <div class="hunger-bar">
+                    <div class="hunger-fill" style="width: 100%"></div>
+                </div>
+                <div>空气值: <span id="air-value">300</span></div>
+                <div class="air-bar">
+                    <div class="air-fill" style="width: 100%"></div>
+                </div>
+            </div>
+            <div id="position" class="ui-element">
+                <div>位置: X: <span id="pos-x">0</span>, Y: <span id="pos-y">0</span>, Z: <span id="pos-z">0</span></div>
+                <div>FPS: <span id="fps">60</span></div>
+            </div>
+            <div id="time" class="ui-element">
+                <div>游戏时间: <span id="day-time">12:00</span></div>
+            </div>
+            <div id="biome" class="ui-element">
+                <div>生物群系: <span id="biome-name">平原</span></div>
+            </div>
+            <div id="hotbar">
+                <!-- 快捷栏将由JavaScript动态生成 -->
+            </div>
+            <div id="inventory">
+                <h2>背包</h2>
+                <div id="inventory-grid">
+                    <!-- 背包格子将由JavaScript动态生成 -->
+                </div>
+            </div>
+            <div id="crafting">
+                <h2>合成</h2>
+                <div id="crafting-grid">
+                    <!-- 合成格子将由JavaScript动态生成 -->
+                </div>
+            </div>
+            <div id="controls" class="ui-element">
+                <div>WASD: 移动</div>
+                <div>空格: 跳跃 / 上浮</div>
+                <div>Shift: 潜行 / 下潜</div>
+                <div>1-9: 选择快捷栏</div>
+                <div>E: 打开背包</div>
+                <div>C: 打开合成</div>
+                <div>F: 切换视角</div>
+                <div>ESC: 暂停</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script-minecraft.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的世界高级版</title>
+    <link rel="stylesheet" href="style-minecraft.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>我的世界高级版</h1>
+        
+        <!-- 顶部状态栏 -->
+        <div class="game-info">
+            <div class="health">生命值: <span id="health">20</span></div>
+            <div class="hunger">饥饿度: <span id="hunger">20</span></div>
+            <div class="blocks">方块数量: <span id="blocks">100</span></div>
+            <div class="day-time">时间: <span id="dayTime">白天</span></div>
+        </div>
+        
+        <!-- 游戏画布 -->
+        <canvas id="gameCanvas" width="1000" height="700"></canvas>
+        
+        <!-- 快捷工具栏 -->
+        <div class="hotbar">
+            <div class="hotbar-slot active" data-slot="0">
+                <div class="hotbar-item grass"></div>
+                <span class="hotbar-count">64</span>
+                <span class="hotbar-key">1</span>
+            </div>
+            <div class="hotbar-slot" data-slot="1">
+                <div class="hotbar-item dirt"></div>
+                <span class="hotbar-count">64</span>
+                <span class="hotbar-key">2</span>
+            </div>
+            <div class="hotbar-slot" data-slot="2">
+                <div class="hotbar-item stone"></div>
+                <span class="hotbar-count">64</span>
+                <span class="hotbar-key">3</span>
+            </div>
+            <div class="hotbar-slot" data-slot="3">
+                <div class="hotbar-item wood"></div>
+                <span class="hotbar-count">64</span>
+                <span class="hotbar-key">4</span>
+            </div>
+            <div class="hotbar-slot" data-slot="4">
+                <div class="hotbar-item glass"></div>
+                <span class="hotbar-count">64</span>
+                <span class="hotbar-key">5</span>
+            </div>
+            <div class="hotbar-slot" data-slot="5">
+                <div class="hotbar-item ore"></div>
+                <span class="hotbar-count">16</span>
+                <span class="hotbar-key">6</span>
+            </div>
+            <div class="hotbar-slot" data-slot="6">
+                <div class="hotbar-item coal"></div>
+                <span class="hotbar-count">32</span>
+                <span class="hotbar-key">7</span>
+            </div>
+            <div class="hotbar-slot" data-slot="7">
+                <div class="hotbar-item sapling"></div>
+                <span class="hotbar-count">8</span>
+                <span class="hotbar-key">8</span>
+            </div>
+            <div class="hotbar-slot" data-slot="8">
+                <div class="hotbar-item tool-pickaxe"></div>
+                <span class="hotbar-count">1</span>
+                <span class="hotbar-key">9</span>
+            </div>
+        </div>
+        
+        <!-- 游戏控制说明 -->
+        <div class="game-controls">
+            <div class="movement-controls">
+                <h3>移动控制</h3>
+                <p>W - 前进 | S - 后退 | A - 向左 | D - 向右 | 空格 - 跳跃 | 左Shift - 潜行 | 鼠标 - 视角</p>
+            </div>
+            
+            <div class="build-controls">
+                <h3>建造控制</h3>
+                <p>左键 - 破坏方块 | 右键 - 放置方块 | 1-9 - 选择物品 | E - 打开背包 | F - 切换视角</p>
+            </div>
+        </div>
+        
+        <!-- 游戏状态信息 -->
+        <div class="game-stats">
+            <span>坐标: X: <span id="posX">0</span>, Y: <span id="posY">0</span>, Z: <span id="posZ">0</span></span>
+            <span>生物群系: <span id="biome">平原</span></span>
+            <span>FPS: <span id="fps">60</span></span>
+        </div>
+        
+        <!-- 背包界面 (默认隐藏) -->
+        <div class="inventory" id="inventory">
+            <div class="inventory-header">
+                <h3>物品栏</h3>
+                <button id="closeInventory">关闭</button>
+            </div>
+            <div class="inventory-grid">
+                <!-- 快捷栏 -->
+                <div class="inventory-section hotbar-section">
+                    <h4>快捷栏</h4>
+                    <div class="inventory-hotbar"></div>
+                </div>
+                <!-- 主物品栏 -->
+                <div class="inventory-section main-section">
+                    <h4>物品栏</h4>
+                    <div class="inventory-main"></div>
+                </div>
+                <!-- 装备栏 -->
+                <div class="inventory-section armor-section">
+                    <h4>装备栏</h4>
+                    <div class="inventory-armor"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 合成界面 (默认隐藏) -->
+        <div class="crafting" id="crafting">
+            <div class="crafting-header">
+                <h3>合成</h3>
+                <button id="closeCrafting">关闭</button>
+            </div>
+            <div class="crafting-grid">
+                <!-- 3x3合成格 -->
+                <div class="crafting-grid-3x3"></div>
+                <!-- 合成结果 -->
+                <div class="crafting-result"></div>
+                <!-- 合成配方列表 -->
+                <div class="crafting-recipes"></div>
+            </div>
+        </div>
+        
+        <!-- 昼夜指示器 -->
+        <div class="day-night-indicator">
+            <div class="day-night-bar">
+                <div class="day-night-fill" id="dayNightFill"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script-minecraft.js"></script>
+</body>
+</html>

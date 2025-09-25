@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项列表</title>
+    <link rel="stylesheet" href="style-todo.css">
+</head>
+<body>
+    <div class="todo-container">
+        <h1>我的待办事项</h1>
+        
+        <div class="todo-input-section">
+            <input type="text" id="todoInput" placeholder="添加新的待办事项..." />
+            <button id="addTodoBtn">添加</button>
+        </div>
+        
+        <div class="todo-filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="active">待办</button>
+            <button class="filter-btn" data-filter="completed">已完成</button>
+        </div>
+        
+        <div class="todo-list">
+            <ul id="todoItems"></ul>
+        </div>
+        
+        <div class="todo-stats">
+            <span id="itemsLeft">0 项待办</span>
+            <button id="clearCompletedBtn">清除已完成</button>
+        </div>
+    </div>
+    
+    <script src="script-todo.js"></script>
+</body>
+</html>

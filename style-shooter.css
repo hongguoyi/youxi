@@ -1,0 +1,227 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.game-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+}
+
+.game-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff0055, #00ffaa, #ff0055, #00ffaa);
+    z-index: -1;
+    border-radius: 17px;
+    opacity: 0.5;
+    animation: glowing 5s linear infinite;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.score, .lives, .level {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#score, #lives, #level {
+    font-size: 1.3rem;
+}
+
+#score {
+    color: #00ffaa;
+}
+
+#lives {
+    color: #ff0055;
+}
+
+#level {
+    color: #00aaff;
+}
+
+#gameCanvas {
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: crosshair;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #00ffaa;
+    color: #1a1a2e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 170, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#startBtn {
+    background-color: #00ffaa;
+}
+
+#startBtn:hover {
+    background-color: #00e699;
+}
+
+#pauseBtn {
+    background-color: #ffaa00;
+}
+
+#pauseBtn:hover {
+    background-color: #e69900;
+}
+
+#restartBtn {
+    background-color: #ff0055;
+    color: white;
+}
+
+#restartBtn:hover {
+    background-color: #e6004d;
+}
+
+.game-rules {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.game-rules h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.game-rules p {
+    color: #ccc;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* 游戏特效 */
+@keyframes explosion {
+    0% { transform: scale(0.1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.explosion {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff6b6b 0%, #ffd93d 50%, #ff8c42 100%);
+    animation: explosion 0.5s ease-out forwards;
+}
+
+/* 响应式设计 */
+@media (max-width: 950px) {
+    .game-container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 100%;
+        max-width: 200px;
+    }
+}
